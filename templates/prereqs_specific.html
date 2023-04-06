@@ -1,0 +1,162 @@
+{% include 'top.html' %}
+<div id="content">
+    <div id="container">
+        <h1 class="page-title">Unit of Study Prerequisites</h1>
+        <style>
+            
+            * {
+              box-sizing: border-box;
+            }
+
+            form.search input[type=text] {
+              padding: 10px;
+              font-size: 17px;
+              border: 1px solid grey;
+              float: left;
+              width: 80%;
+              background: #f1f1f1;
+            }
+
+
+            form.search button {
+              float: left;
+              width: 20%;
+              padding: 10px;
+              background: #2196F3;
+              color: white;
+              font-size: 17px;
+              border: 1px solid grey;
+              border-left: none;
+              cursor: pointer;
+            }
+
+            form.search button:hover {
+              background: #0b7dda;
+            }
+
+
+            form.search::after {
+              content: "";
+              clear: both;
+              display: table;
+            }
+            
+            .button {
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+
+            .button1 {
+                background-color: white;
+                color: black;
+                border: 2px solid #4CAF50; /* Green */
+            } 
+
+            .button1:hover {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .button2 {
+                background-color: white;
+                color: black;
+                border: 2px solid #008CBA; /* Blue */
+            } 
+
+            .button2:hover {
+                background-color: #008CBA;
+                color: white;
+            }
+
+            .button3 {
+                background-color: white;
+                color: black;
+                border: 2px solid #E74C3C; /* Red */
+            } 
+
+            .button3:hover {
+                background-color: #E74C3C;
+                color: white;
+            }
+
+            .button4 {
+                background-color: white;
+                color: black;
+                border: 2px solid #5D6D7E; /* Grey */
+            } 
+
+            .button4:hover {
+                background-color: #5D6D7E;
+                color: white;
+            }
+            
+            .alert {
+              padding: 20px;
+              background-color: #45B941; /* Green */
+              color: white;
+              margin-bottom: 15px;
+            }
+
+            .closebutton {
+              margin-left: 15px;
+              color: white;
+              font-weight: bold;
+              float: right;
+              font-size: 22px;
+              line-height: 20px;
+              cursor: pointer;
+              transition: 0.3s;
+            }
+
+            .closebutton:hover {
+              color: black;
+            }
+
+        </style>
+        
+        <a class="button button1" href="{{ url_for('prereqs_all') }}">All Prerequisites</a>
+        
+        <a class="button button2">Search Unit Prerequisites</a>
+        
+        <a class="button button3" href="{{ url_for('prereqs_count') }}">Number of Prerequisites Per Unit</a>
+        
+        <a class="button button4" href="{{ url_for('prereqs_new') }}">Add New Prerequisite</a>
+        
+        <br></br>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <form class="search" method="POST" action="{{ url_for('prereqs_specific') }}" style="margin:auto; max-width:300px">
+          <input type="text" placeholder="UOS Code" name="uosc" required>
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <br></br>
+        {% if posted == 1 %}
+            {% if prerequisites | length != 0 %}
+            <table id="uos_prqs_table" class="pure-table">
+                <thead>
+                   <tr><th>Prerequisite Code</th><th>Prerequisite Name</th></tr>
+                </thead>
+                <tbody>
+                    {% for prq in prerequisites %}
+                        <tr>
+                            <td> {{prq[0]}}</td>
+                            <td> {{prq[1]}} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div id="no_result">This unit does not have any known prerequisites.</div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
